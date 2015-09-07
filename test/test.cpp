@@ -34,7 +34,7 @@ public:
 
   void addLog(const char* category, int level, std::string line)
   {
-    _expected.push(Expectation{ level, category, line + '\n' });
+    _expected.push(Expectation{ level, category, std::move(line) });
   }
 
   void beginLog(
@@ -81,6 +81,16 @@ TEST_CASE("simple log")
   EXPECTED_LOG();
   exp.ADD_LOG(log::LEVEL_INFO, "simple test");
   xInf("simple test");
+}
+
+TEST_CASE("long log")
+{
+  log::setLevel(log::LEVEL_DEBUG);
+  XLL_LOG_CATEGORY("mycategory");
+  EXPECTED_LOG();
+  const char* str = "this is a very very long log line lol check it out right now\nhep hep plop plop, nope ! a few more words and we're done here. ok this is enough";
+  exp.ADD_LOG(log::LEVEL_INFO, str);
+  xInf(str);
 }
 
 TEST_CASE("all levels")

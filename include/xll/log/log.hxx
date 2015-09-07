@@ -75,6 +75,7 @@ public:
       auto size = std::min(_buf.size() - _pos, n);
       std::memcpy(&_buf[_pos], s, size);
       _pos += size;
+      s += size;
       n -= size;
 
       flushIfNeeded();
