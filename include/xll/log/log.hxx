@@ -20,25 +20,11 @@ struct Settings
   std::map<const char*, int> catlevels;
 };
 
-// We need a static variable but we need to stay header only
-// Putting a static variable inside a function might work, but it would force a
-// call to __cxa_atexit to clean-up the variable
-// It's better to make this a global static, but it must not be instanciated
-// inside every translation unit, so we make the struct template so that all
-// instanciations are merged at linkage
-template <int Dummy>
-struct SettingsHolder
-{
-  static Settings settings;
-};
-
-template <int Dummy>
-Settings SettingsHolder<Dummy>::settings;
-
 inline
 Settings& getSettingsStorage()
 {
-  return SettingsHolder<0>::settings;
+  static Settings settings;
+  return settings;
 }
 
 inline
