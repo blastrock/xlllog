@@ -8,7 +8,7 @@ What is xll::log?
 It is a logging system with the following features:
 
 - header-only
-- alwost zero allocation
+- almost zero allocation
 - supports different logging levels
 - supports logging into categories
 - printf-style formatting (thanks to pnt)
@@ -52,8 +52,7 @@ In your main file, you can write:
 Constraints
 ===========
 
-There are a few constraints that were needed to enforce for the library to be
-fast.
+There are a few constraints that must be respected for the library to be fast.
 
 On categories
 -------------
@@ -71,16 +70,16 @@ On allocations
 --------------
 
 This library does almost 0 allocation. It relies on pnt for formatting which
-allocates memory only with floats and with things that need to be casted to
+allocates memory only with floats and with types that need to be casted to
 std::string for printing.
 
 The only function that may allocate memory is ``addFilter`` which adds the
-filter to a ``std::set``.
+filter to a ``std::map``.
 
 License
 =======
 
-The code is licensed under the FreeBSD license provided in the COPYING file.
+The code is licensed under the BSD license provided in the COPYING file.
 
 Author
 ======
